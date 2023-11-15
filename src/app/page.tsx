@@ -30,7 +30,7 @@ export default function Home() {
     <>
  <h1>Machines will be listed here</h1>
  {!isLoading ? machines.length > 0 ? machines.map((machine: any, idx) => {
-  return <MachineCard machine={machine}/>
+  return <MachineCard key={machine.id} machine={machine}/>
  }) : <h1>No machines added yet</h1> : <h1>Loading...</h1>}
   </>
   )

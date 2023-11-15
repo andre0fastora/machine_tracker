@@ -10,9 +10,9 @@ const MachineCard = ({machine}: MachineCardProps) => {
         <h1>Number: {machine.number}</h1>
         <h2>Bin Count: {machine.binCount}</h2>
         <h2>Candy / Notes: {machine.candy}</h2>
-        <textarea></textarea>
+        <textarea className=' text-slate-900 '></textarea>
         <br></br>
-        <button className=' bg-slate-600 p-4 border rounded-md'>Update Notes</button>
+        <button className='  bg-slate-600 p-4 border rounded-md'>Update Notes</button>
         <h2>Last Serviced: {machine.lastServiced}</h2>
         <h2>Last withdrawl: {machine.moneyGatheredLastService}</h2>
         <h2>Total Money Withdrawn: {machine.moneyGatheredTotal}</h2>
