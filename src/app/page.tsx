@@ -1,32 +1,37 @@
 
+"use client"
+import MachineCard from '@/components/MachineCard'
 import { PrismaClient } from '@prisma/client'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 
-
-const prisma = new PrismaClient()
 
 
 
 
 export default function Home() {
   
- let machines:Array<Object> = [];
-
-
-  async function getMachines() {
-   machines = await prisma.machines.findMany()
-   console.log(machines)
-   return machines; 
+  const [machines, setMachines] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  
+  const getMachines = async () => {
+    await axios.get("http://localhost:3000/api/get").then((response) => {
+    setMachines(response.data)
+    setIsLoading(false)
+    })
   }
-  getMachines();
-
+  //pull this into an api route so I can set up state in this component
+ useEffect(() => {
+  getMachines()
+ },[])
 
   return (
     <>
  <h1>Machines will be listed here</h1>
- {machines.length > 0 ? machines.map((machine:Object, idx) => {
-  return <h1>{machine?.id}</h1>
- }) : <h1>No machines added yet</h1>}
+ {!isLoading ? machines.length > 0 ? machines.map((machine: any, idx) => {
+  return <MachineCard machine={machine}/>
+ }) : <h1>No machines added yet</h1> : <h1>Loading...</h1>}
   </>
   )
 }
