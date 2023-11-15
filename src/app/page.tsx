@@ -4,19 +4,20 @@ import MachineCard from '@/components/MachineCard'
 import { PrismaClient } from '@prisma/client'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-
-
-
+import { usePathname } from 'next/navigation'
 
 
 
 export default function Home() {
   
+  const pathname = usePathname();
+  let apiUrl = pathname.includes("localhost") ? "http://localhost:3000/api/get" : "https://machine-tracker-r3eswen0i-andre0fastora.vercel.app/api/get"
+  
   const [machines, setMachines] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   
   const getMachines = async () => {
-    await axios.get("http://localhost:3000/api/get").then((response) => {
+    await axios.get(apiUrl).then((response) => {
     setMachines(response.data)
     setIsLoading(false)
     })

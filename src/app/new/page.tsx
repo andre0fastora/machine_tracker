@@ -1,6 +1,7 @@
 "use client"
 import React, {useState} from 'react'
 import axios from 'axios';
+import { usePathname } from 'next/navigation'
 
 
 
@@ -9,7 +10,8 @@ const AddMachine = () => {
   const [machineNumber, setMachineNumber] = useState(0);
   const [binCount, setBinCount] = useState(0);
   const [candy, setCandy] = useState("");
-
+  const pathname = usePathname();
+  let apiUrl = pathname.includes("localhost") ? "http://localhost:3000/api/save" : "https://machine-tracker-r3eswen0i-andre0fastora.vercel.app/api/save"
  
 
 
@@ -20,7 +22,7 @@ const AddMachine = () => {
     <form
     onSubmit={async (e)=> {
       e.preventDefault();
-      await axios.post("http://localhost:3000/api/save", {
+      await axios.post(apiUrl, {
         machineNumber: machineNumber,
         binCount: binCount,
         candy: candy
